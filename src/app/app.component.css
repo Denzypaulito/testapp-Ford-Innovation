@@ -1,0 +1,15 @@
+/* Estilos para centrar el contenedor */
+.container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh; /* Altura de la pantalla completa */
+  }
+  
+  /* Estilos para la cuadrícula de botones */
+  .button-grid {
+    display: grid;
+    grid-template-columns: repeat(3, auto); /* 3 columnas */
+    gap: 50px; /* Espacio entre botones */
+  }
+  
