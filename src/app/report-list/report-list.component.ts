@@ -1,6 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { DataService } from '../data.service';
 import { Report } from './report.model';
+import { ReportModalComponent } from '../report-modal/report-modal.component';
+import { MatDialogRef } from '@angular/material/dialog';
 
 @Component({
   selector: 'app-report-list',
@@ -10,23 +12,46 @@ import { Report } from './report.model';
 export class ReportListComponent implements OnInit {
   reports: Report[] = [];
 
+  @Input() ubicacion_id: string = '';
+
   constructor(private dataService: DataService) { }
 
   ngOnInit() {
-    this.dataService.getData().subscribe(data => {
-      this.reports = data;
+    this.dataService.getDataByUbicacion(this.ubicacion_id).subscribe((data: any[]) => {
+      this.reports = data.map((v) => {
+        return {
+          engineNumber: v.motor,
+          rackNumber: v.rack,
+          locationNumber: v.ubicacion,
+          shipmentDate: v.fechaEmbarque
+        };
+      });
     });
   }
 
   searchReports() {
-    this.dataService.getData().subscribe(data => {
-      this.reports = data;
+    this.dataService.getDataByUbicacion(this.ubicacion_id).subscribe((data: any[]) => {
+      this.reports = data.map((v) => {
+        return {
+          engineNumber: v.motor,
+          rackNumber: v.rack,
+          locationNumber: v.ubicacion,
+          shipmentDate: v.fechaEmbarque
+        };
+      });
     });
   }
 
   viewReports() {
-    this.dataService.getData().subscribe(data => {
-      this.reports = data;
+    this.dataService.getDataByUbicacion(this.ubicacion_id).subscribe((data: any[]) => {
+      this.reports = data.map((v) => {
+        return {
+          engineNumber: v.motor,
+          rackNumber: v.rack,
+          locationNumber: v.ubicacion,
+          shipmentDate: v.fechaEmbarque
+        };
+      });
     });
   }
 

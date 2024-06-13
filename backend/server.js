@@ -45,6 +45,7 @@ app.post('/api/data', async (req, res) => {
 app.get('/api/data/:ubicacion', async (req, res) => {
   const data = await Data.find({ ubicacion: req.params.ubicacion });
   res.json(data);
+  console.log(req.params.ubicacion);
 });
 
 // Iniciar el servidor

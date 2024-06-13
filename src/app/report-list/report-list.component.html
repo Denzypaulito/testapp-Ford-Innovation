@@ -1,10 +1,22 @@
 <div>
   <button (click)="searchReports()" class="stylized-button">Buscar Reportes</button>
   <button (click)="viewReports()" class="stylized-button">Ver Reportes</button>
-  <ul>
-    <li *ngFor="let report of reports">
-      {{ report.engineNumber }} - {{ report.rackNumber }} - {{ report.locationNumber }} - {{ report.shipmentDate }}
+  <table style="width: 100%;">
+    <tr>
+      <th>Rack</th>
+      <th>Ubicación</th>
+      <th>Embarque</th>
+      <th></th>
+      <th>Motor</th>
+      
+    </tr>
+    <tr *ngFor="let report of reports">
+      <td>{{report.rackNumber}}</td>
+      <td>{{report.locationNumber}}</td>
+      <td>{{report.shipmentDate | date}}</td>
       <span [ngClass]="getShipmentClass(report.shipmentDate)"></span>
-    </li>
-  </ul>
+      <td>{{report.engineNumber}}</td>
+    </tr>
+  </table>
+  
 </div>

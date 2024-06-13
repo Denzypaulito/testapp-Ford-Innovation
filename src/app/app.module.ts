@@ -13,7 +13,8 @@ import { ReportFormComponent } from './report-form/report-form.component';
 import { ReportListComponent } from './report-list/report-list.component';
 import { AppRoutingModule } from './app-routing.module';
 import { ReportWindowComponent } from './report-window/report-window.component';
-import { DataService } from './data.service'; // Importa DataService
+import { CreateReportModalComponent } from './create-report-modal/create-report-modal.component';
+import { DataService } from './data.service';
 
 @NgModule({
   declarations: [
@@ -22,7 +23,8 @@ import { DataService } from './data.service'; // Importa DataService
     ReportModalComponent,
     ReportFormComponent,
     ReportListComponent,
-    ReportWindowComponent
+    ReportWindowComponent,
+    CreateReportModalComponent
   ],
   imports: [
     BrowserModule,
@@ -33,7 +35,7 @@ import { DataService } from './data.service'; // Importa DataService
     HttpClientModule,
     FormsModule
   ],
-  providers: [DataService], 
+  providers: [DataService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

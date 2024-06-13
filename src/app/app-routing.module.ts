@@ -3,8 +3,8 @@ import { RouterModule, Routes } from '@angular/router';
 import { ReportWindowComponent } from './report-window/report-window.component';
 
 const routes: Routes = [
-  { path: 'report', component: ReportWindowComponent },
-  { path: '', redirectTo: '/', pathMatch: 'full' },
+  { path: 'report', component: ReportWindowComponent }
+  //{ path: '', redirectTo: '/', pathMatch: 'full' },
 ];
 
 @NgModule({

@@ -1,4 +1,4 @@
-import { Component, Inject } from '@angular/core';
+import { Component, Inject, Input } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 
 @Component({
@@ -7,10 +7,13 @@ import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
   styleUrls: ['./report-modal.component.css']
 })
 export class ReportModalComponent {
+
+  @Input() ubicacion_id: string = '';
+
   constructor(
     private dialogRef: MatDialogRef<ReportModalComponent>,
     @Inject(MAT_DIALOG_DATA) public data: { buttonName: string }
-  ) {}
+  ) { }
 
   onClose(): void {
     this.dialogRef.close();
