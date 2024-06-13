@@ -1,0 +1,11 @@
+<div>
+    <button (click)="searchReports()">Buscar Reportes</button>
+    <button (click)="viewReports()">Ver Reportes</button>
+    <ul>
+      <li *ngFor="let report of reports">
+        {{ report.engineNumber }} - {{ report.rackNumber }} - {{ report.locationNumber }} - {{ report.shipmentDate }}
+        <span [ngClass]="getShipmentClass(report.shipmentDate)"></span>
+      </li>
+    </ul>
+  </div>
+  
