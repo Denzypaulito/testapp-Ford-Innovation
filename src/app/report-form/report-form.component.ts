@@ -10,7 +10,7 @@ import { CreateReportModalComponent } from '../create-report-modal/create-report
 })
 export class ReportFormComponent {
   report = {
-    motor: '',
+    motor: [],
     rack: '',
     ubicacion: '',
     fechaEmbarque: ''
