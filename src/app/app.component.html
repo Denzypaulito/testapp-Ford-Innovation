@@ -1,11 +1,13 @@
 <div class="container">
-  <div class="button-grid">
-    <app-stylized-button ubicacion_id="A" buttonName="Rack A" action="view"></app-stylized-button>
-    <app-stylized-button ubicacion_id="B" buttonName="Rack B" action="view"></app-stylized-button>
-    <app-stylized-button ubicacion_id="C" buttonName="Rack C" action="view"></app-stylized-button>
-    <app-stylized-button ubicacion_id="D" buttonName="Rack D" action="view"></app-stylized-button>
-    <app-stylized-button ubicacion_id="E" buttonName="Rack E" action="view"></app-stylized-button>
-    <app-stylized-button ubicacion_id="F" buttonName="Rack F" action="view"></app-stylized-button>
-    <app-stylized-button ubicacion_id="" buttonName="Crear Reporte" action="create"></app-stylized-button>
-  </div>
+  <div class="subcontainer">
+    <marquee><h1>Bienvenidos a la Ford 🚗</h1></marquee>
+    <div class="button-grid">
+      <app-stylized-button *ngFor="let letra of letras" [ubicacion_id]="letra" [buttonName]="'Rack '+letra" action="view"></app-stylized-button>
+    </div>
+    <br>
+    <div class="centered">
+      <app-stylized-button2 ubicacion_id="" buttonName="Crear Reporte" action="create"></app-stylized-button2>
+    </div>
+
+  </div>  
 </div>

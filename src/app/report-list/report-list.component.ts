@@ -20,7 +20,7 @@ export class ReportListComponent implements OnInit {
     this.dataService.getDataByUbicacion(this.ubicacion_id).subscribe((data: any[]) => {
       this.reports = data.map((v) => {
         return {
-          engineNumber: v.motor,
+          engineNumber: this.processMotorString(v.motor),
           rackNumber: v.rack,
           locationNumber: v.ubicacion,
           shipmentDate: v.fechaEmbarque
@@ -29,7 +29,12 @@ export class ReportListComponent implements OnInit {
     });
   }
 
+  processMotorString(m: string) {
+    return m.split(',');
+  }
+
   searchReports() {
+    alert('no sirvo :(');
     this.dataService.getDataByUbicacion(this.ubicacion_id).subscribe((data: any[]) => {
       this.reports = data.map((v) => {
         return {

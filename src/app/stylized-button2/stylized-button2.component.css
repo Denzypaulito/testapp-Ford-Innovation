@@ -1,8 +1,8 @@
-.stylized-button {
-    background-color: #4551f1; /* Green background */
+.stylized-button2 {
+    background-color: #f14545; /* Green background */
     border: none; /* Remove border */
     color: white; /* White text */
-    padding: 4em 8em; /* Some padding */
+    padding: 20px 100px; /* Some padding */
     text-align: center; /* Center the text */
     text-decoration: none; /* Remove underline */
     display: inline-block; /* Make the button inline-block */
@@ -13,9 +13,9 @@
     transition-duration: 0.4s; /* Make the transition smooth */
   }
   
-  .stylized-button:hover {
+  .stylized-button2:hover {
     background-color: white; /* Add a background color on hover */
     color: black; /* Add a text color on hover */
-    border: 1px solid #1e05ff; /* Add a border on hover */
+    border: 1px solid #ff0505; /* Add a border on hover */
   }
   

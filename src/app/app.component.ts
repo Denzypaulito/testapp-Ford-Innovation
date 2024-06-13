@@ -7,4 +7,7 @@ import { Component } from '@angular/core';
 })
 export class AppComponent {
   title = 'testapp';
+
+  letras = ['A', 'B', 'C', 'D', 'E', 'F'];
+
 }

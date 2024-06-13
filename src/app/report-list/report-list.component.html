@@ -1,6 +1,5 @@
 <div>
-  <button (click)="searchReports()" class="stylized-button">Buscar Reportes</button>
-  <button (click)="viewReports()" class="stylized-button">Ver Reportes</button>
+  <!--<button (click)="searchReports()" class="stylized-button">Buscar Reportes</button> -->
   <table style="width: 100%;">
     <tr>
       <th>Rack</th>
@@ -15,7 +14,7 @@
       <td>{{report.locationNumber}}</td>
       <td>{{report.shipmentDate | date}}</td>
       <span [ngClass]="getShipmentClass(report.shipmentDate)"></span>
-      <td>{{report.engineNumber}}</td>
+      <td><span *ngFor="let motor of report.engineNumber">{{motor}}<br></span></td>
     </tr>
   </table>
   

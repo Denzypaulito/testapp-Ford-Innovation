@@ -1,5 +1,5 @@
 export interface Report {
-    engineNumber: string;
+    engineNumber: string[];
     rackNumber: string;
     locationNumber: string;
     shipmentDate: string; 

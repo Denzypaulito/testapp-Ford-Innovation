@@ -15,6 +15,7 @@ import { AppRoutingModule } from './app-routing.module';
 import { ReportWindowComponent } from './report-window/report-window.component';
 import { CreateReportModalComponent } from './create-report-modal/create-report-modal.component';
 import { DataService } from './data.service';
+import { StylizedButton2Component } from './stylized-button2/stylized-button2.component';
 
 @NgModule({
   declarations: [
@@ -24,7 +25,8 @@ import { DataService } from './data.service';
     ReportFormComponent,
     ReportListComponent,
     ReportWindowComponent,
-    CreateReportModalComponent
+    CreateReportModalComponent,
+    StylizedButton2Component
   ],
   imports: [
     BrowserModule,

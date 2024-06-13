@@ -12,4 +12,16 @@
     grid-template-columns: repeat(3, auto); /* 3 columnas */
     gap: 50px; /* Espacio entre botones */
   }
+
+  .centered {
+    display: flex;
+    justify-content: center;
+  }
+
+  .subcontainer {
+    border: solid 1px #000;
+    border-radius: 12px;
+    background-color: white;
+    padding: 2em;
+  }
   
