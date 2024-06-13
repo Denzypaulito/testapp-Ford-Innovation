@@ -9,7 +9,7 @@ import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 export class ReportModalComponent {
   constructor(
     private dialogRef: MatDialogRef<ReportModalComponent>,
-    @Inject(MAT_DIALOG_DATA) public data: { engineNumber: string, rackNumber: string }
+    @Inject(MAT_DIALOG_DATA) public data: { buttonName: string }
   ) {}
 
   onClose(): void {

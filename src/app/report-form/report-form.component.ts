@@ -1,4 +1,5 @@
-import { Component, Input } from '@angular/core';
+import { Component } from '@angular/core';
+import { DataService } from '../data.service';
 
 @Component({
   selector: 'app-report-form',
@@ -6,23 +7,20 @@ import { Component, Input } from '@angular/core';
   styleUrls: ['./report-form.component.css']
 })
 export class ReportFormComponent {
-  @Input() engineNumber!: string; /* Necesito revisar esto*/
-  @Input() rackNumber!: string; /* Necesito revisar esto*/
-
   report = {
-    engineNumber: '',
-    rackNumber: '',
-    locationNumber: '',
-    shipmentDate: ''
+    motor: '',
+    rack: '',
+    ubicacion: '',
+    fechaEmbarque: ''
   };
 
-  ngOnInit() {
-    this.report.engineNumber = this.engineNumber;
-    this.report.rackNumber = this.rackNumber;
-  }
+  constructor(private dataService: DataService) { }
 
   onSubmit() {
-    // Aquí se debería manejar la lógica para crear un reporte
-    console.log('Reporte creado:', this.report);
+    this.dataService.createData(this.report).subscribe(response => {
+      console.log('Reporte creado:', response);
+    }, error => {
+      console.error('Error al crear el reporte:', error);
+    });
   }
 }

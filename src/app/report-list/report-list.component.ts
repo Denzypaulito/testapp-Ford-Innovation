@@ -1,4 +1,5 @@
-import { Component, Input } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
+import { DataService } from '../data.service';
 import { Report } from './report.model';
 
 @Component({
@@ -6,23 +7,27 @@ import { Report } from './report.model';
   templateUrl: './report-list.component.html',
   styleUrls: ['./report-list.component.css']
 })
-export class ReportListComponent {
-  @Input() engineNumber!: string; /* Necesito revisar esto*/
-  @Input() rackNumber!: string; /* Necesito revisar esto*/
- 
-  reports: Report[] = [
-    // Puedes añadir algunos reportes de prueba aquí para ver cómo funciona
-    { engineNumber: '1234', rackNumber: 'A1', locationNumber: 'L1', shipmentDate: '2023-04-01' },
-    { engineNumber: '5678', rackNumber: 'B2', locationNumber: 'L2', shipmentDate: '2023-05-01' },
-    { engineNumber: '9101', rackNumber: 'C3', locationNumber: 'L3', shipmentDate: '2023-06-01' }
-  ];
+export class ReportListComponent implements OnInit {
+  reports: Report[] = [];
+
+  constructor(private dataService: DataService) { }
+
+  ngOnInit() {
+    this.dataService.getData().subscribe(data => {
+      this.reports = data;
+    });
+  }
 
   searchReports() {
-    // Lógica para buscar reportes
+    this.dataService.getData().subscribe(data => {
+      this.reports = data;
+    });
   }
 
   viewReports() {
-    // Lógica para ver reportes
+    this.dataService.getData().subscribe(data => {
+      this.reports = data;
+    });
   }
 
   getShipmentClass(shipmentDate: string): string {

@@ -1,19 +1,19 @@
 <form (ngSubmit)="onSubmit()" #reportForm="ngForm">
   <div>
     <label for="engineNumber">Número de Motor</label>
-    <input type="text" id="engineNumber" [(ngModel)]="report.engineNumber" name="engineNumber" required>
+    <input type="text" id="engineNumber" [(ngModel)]="report.motor" name="motor" required>
   </div>
   <div>
     <label for="rackNumber">Número de Rack</label>
-    <input type="text" id="rackNumber" [(ngModel)]="report.rackNumber" name="rackNumber" required>
+    <input type="text" id="rackNumber" [(ngModel)]="report.rack" name="rack" required>
   </div>
   <div>
     <label for="locationNumber">Número de Ubicación</label>
-    <input type="text" id="locationNumber" [(ngModel)]="report.locationNumber" name="locationNumber" required>
+    <input type="text" id="locationNumber" [(ngModel)]="report.ubicacion" name="ubicacion" required>
   </div>
   <div>
     <label for="shipmentDate">Fecha de Embarque</label>
-    <input type="date" id="shipmentDate" [(ngModel)]="report.shipmentDate" name="shipmentDate" required>
+    <input type="date" id="shipmentDate" [(ngModel)]="report.fechaEmbarque" name="fechaEmbarque" required>
   </div>
   <button type="submit" class="stylized-button">Crear Reporte</button>
 </form>
