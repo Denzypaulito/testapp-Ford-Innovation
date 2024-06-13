@@ -1,8 +1,10 @@
 <h2 mat-dialog-title>Reportes</h2>
 <mat-dialog-content>
-  <app-report-form></app-report-form>
-  <app-report-list></app-report-list>
+  <p>Número de Motor: {{ data.engineNumber }}</p>
+  <p>Número de Rack: {{ data.rackNumber }}</p>
+  <app-report-form [engineNumber]="data.engineNumber" [rackNumber]="data.rackNumber"></app-report-form>
+  <app-report-list [engineNumber]="data.engineNumber" [rackNumber]="data.rackNumber"></app-report-list>
 </mat-dialog-content>
 <mat-dialog-actions>
-  <button mat-button (click)="onClose()">Cerrar</button>
+  <button class="stylized-button" (click)="onClose()">Cerrar</button>
 </mat-dialog-actions>

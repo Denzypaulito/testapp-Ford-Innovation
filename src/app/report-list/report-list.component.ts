@@ -1,5 +1,5 @@
-import { Component } from '@angular/core';
-import { Report } from './report.model';  
+import { Component, Input } from '@angular/core';
+import { Report } from './report.model';
 
 @Component({
   selector: 'app-report-list',
@@ -7,6 +7,9 @@ import { Report } from './report.model';
   styleUrls: ['./report-list.component.css']
 })
 export class ReportListComponent {
+  @Input() engineNumber!: string; /* Necesito revisar esto*/
+  @Input() rackNumber!: string; /* Necesito revisar esto*/
+ 
   reports: Report[] = [
     // Puedes añadir algunos reportes de prueba aquí para ver cómo funciona
     { engineNumber: '1234', rackNumber: 'A1', locationNumber: 'L1', shipmentDate: '2023-04-01' },

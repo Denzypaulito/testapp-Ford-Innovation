@@ -1,5 +1,5 @@
-import { Component } from '@angular/core';
-import { MatDialogRef } from '@angular/material/dialog';
+import { Component, Inject } from '@angular/core';
+import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 
 @Component({
   selector: 'app-report-modal',
@@ -7,7 +7,10 @@ import { MatDialogRef } from '@angular/material/dialog';
   styleUrls: ['./report-modal.component.css']
 })
 export class ReportModalComponent {
-  constructor(private dialogRef: MatDialogRef<ReportModalComponent>) {}
+  constructor(
+    private dialogRef: MatDialogRef<ReportModalComponent>,
+    @Inject(MAT_DIALOG_DATA) public data: { engineNumber: string, rackNumber: string }
+  ) {}
 
   onClose(): void {
     this.dialogRef.close();

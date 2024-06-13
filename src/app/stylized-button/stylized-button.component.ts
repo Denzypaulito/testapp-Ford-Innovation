@@ -1,6 +1,5 @@
-import { Component } from '@angular/core';
-import { MatDialog } from '@angular/material/dialog';
-import { ReportModalComponent } from '../report-modal/report-modal.component';
+import { Component, Input } from '@angular/core';
+import { ModalService } from '../modal.service';
 
 @Component({
   selector: 'app-stylized-button',
@@ -8,12 +7,13 @@ import { ReportModalComponent } from '../report-modal/report-modal.component';
   styleUrls: ['./stylized-button.component.css']
 })
 export class StylizedButtonComponent {
+  @Input() engineNumber: string = '';
+  @Input() rackNumber: string = '';
+  @Input() buttonName: string = 'Click Me';
 
-  constructor(private dialog: MatDialog) { }
+  constructor(private modalService: ModalService) { }
 
   openReportModal() {
-    this.dialog.open(ReportModalComponent, {
-      width: '600px'
-    });
+    this.modalService.openReportModal(this.engineNumber, this.rackNumber);
   }
 }
