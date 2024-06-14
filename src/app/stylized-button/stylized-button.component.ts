@@ -14,7 +14,7 @@ export class StylizedButtonComponent implements OnInit {
   @Input() ubicacion_id: string = '';
   @Input() highlight: boolean = false;
 
-  buttonColor: string = '#008000'; // Default color is green (#008000)
+  buttonColor: string = '#9b9b9b'; // Default color is green (#008000)
 
   @Output() clickedEvt = new EventEmitter<string>();
 
@@ -29,6 +29,10 @@ export class StylizedButtonComponent implements OnInit {
   }
 
   calculateButtonColor(reports: Report[]): string {
+    if (reports.length === 0){
+      return '#9b9b9b'; // Gray if there are no reports 
+    }
+    
     let hasRed = false;
     let hasYellow = false;
     for (let report of reports) {
@@ -36,9 +40,9 @@ export class StylizedButtonComponent implements OnInit {
       const currentDate = new Date();
       const differenceInDays = Math.floor((currentDate.getTime() - shipmentDate.getTime()) / (1000 * 60 * 60 * 24));
 
-      if (differenceInDays > 60) {
+      if (differenceInDays > 14) {
         hasRed = true;
-      } else if (differenceInDays > 30) {
+      } else if (differenceInDays > 7) {
         hasYellow = true;
       }
 

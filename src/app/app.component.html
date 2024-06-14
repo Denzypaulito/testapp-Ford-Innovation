@@ -7,14 +7,14 @@
       </div>
       <br>
       <div class="centered">
-        <button (click)="openCreateReport()" class="btn btn-primary me-2">Crear Reporte</button>
+        <button (click)="openCreateReport()" class="btn btn-primary me-2">Registro Manual</button>
         <button (click)="openSearchRack()" class="btn btn-danger">Buscar Rack</button>
       </div>
     </div>  
   </div>
 </div>
 
-<p-dialog [header]="'Rack '+openRack" [modal]="true" [(visible)]="rack_detail_visible" [style]="{ width: '35rem' }">
+<p-dialog [header]="'Fila '+openRack" [modal]="true" [(visible)]="rack_detail_visible" [style]="{ width: '35rem' }">
   <table style="width: 100%;">
     <tr>
       <th>Rack</th>

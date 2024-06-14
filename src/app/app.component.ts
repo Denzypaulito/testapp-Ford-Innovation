@@ -56,9 +56,9 @@ export class AppComponent {
     const shipment = new Date(shipmentDate);
     const differenceInDays = Math.floor((currentDate.getTime() - shipment.getTime()) / (1000 * 60 * 60 * 24));
 
-    if (differenceInDays > 60) {
+    if (differenceInDays > 14) {
       return 'red';
-    } else if (differenceInDays > 30) {
+    } else if (differenceInDays > 7) {
       return 'yellow';
     } else {
       return 'green';
