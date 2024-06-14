@@ -1,13 +1,89 @@
-<div class="container">
-  <div class="subcontainer">
-    <marquee><h1>Bienvenidos a la Ford 🚗</h1></marquee>
-    <div class="button-grid">
-      <app-stylized-button *ngFor="let numero of numeros" [ubicacion_id]="numero" [buttonName]="'Fila ' + numero" action="view"></app-stylized-button>
-    </div>
-    <br>
-    <div class="centered">
-      <app-stylized-button2 ubicacion_id="" buttonName="Crear Reporte" action="create"></app-stylized-button2>
-      <app-stylized-button-search buttonName="Buscar Rack"></app-stylized-button-search>
-    </div>
-  </div>  
+<div class="vwindow">
+  <div class="container">
+    <div class="subcontainer">
+      <marquee><h1>Bienvenidos a la Ford 🚗</h1></marquee>
+      <div class="row row-cols-auto">
+        <app-stylized-button class="col" *ngFor="let numero of numeros" [ubicacion_id]="numero" [buttonName]="'Fila ' + numero" action="view" (clickedEvt)="openRackDetail($event);"></app-stylized-button>
+      </div>
+      <br>
+      <div class="centered">
+        <button (click)="openCreateReport()" class="btn btn-primary me-2">Crear Reporte</button>
+        <button (click)="openSearchRack()" class="btn btn-danger">Buscar Rack</button>
+      </div>
+    </div>  
+  </div>
 </div>
+
+<p-dialog [header]="'Rack '+openRack" [modal]="true" [(visible)]="rack_detail_visible" [style]="{ width: '35rem' }">
+  <table style="width: 100%;">
+    <tr>
+      <th>Rack</th>
+      <th>Ubicación</th>
+      <th>Embarque</th>
+      <th>Urgencia</th>
+      <th>Motor</th>
+      
+    </tr>
+    <tr *ngFor="let rep of rack_detail_reports">
+      <td>{{rep.rackNumber}}</td>
+      <td>{{rep.locationNumber}}</td>
+      <td>{{rep.shipmentDate | date}}</td>
+      <span [ngClass]="getShipmentClass(rep.shipmentDate)"></span>
+      <td><span *ngFor="let motor of rep.engineNumber">{{motor}}<br></span></td>
+    </tr>
+  </table>
+</p-dialog>
+
+<p-dialog header="Crear Reporte" [modal]="true" [(visible)]="create_report_visible" [style]="{ width: '25rem' }">
+  <form (ngSubmit)="onSubmitReport()" #reportForm="ngForm">
+    <div>
+      <label class="form-label" for="engineNumber">Número de Motor(es)</label>
+      <input class="form-control" type="text" id="engineNumber" [(ngModel)]="report.engineNumber" name="engineNumber" required>
+    </div>
+    <div>
+      <label class="form-label" for="rackNumber">Número de Rack</label>
+      <input class="form-control" type="text" id="rackNumber" [(ngModel)]="report.rackNumber" name="rackNumber" required>
+    </div>
+    <div>
+      <label class="form-label" for="locationNumber">Número de Ubicación</label>
+      <input class="form-control" type="text" id="locationNumber" [(ngModel)]="report.locationNumber" name="locationNumber" required>
+    </div>
+    <div>
+      <label class="form-label" for="shipmentDate">Fecha de Embarque</label>
+      <!--<input type="date" id="shipmentDate" [(ngModel)]="report.fechaEmbarque" name="fechaEmbarque" required> -->
+      <p-calendar id="shipmentDate" name="shipmentDate" [(ngModel)]="report.shipmentDate" appendTo="body" />
+    </div>
+    <button type="submit" class="mt-2 btn btn-success">Crear Reporte</button>
+  </form>
+  
+</p-dialog>
+
+<p-dialog header="Buscar Rack" [modal]="true" [(visible)]="search_rack_visible" [style]="{ width: '50rem' }">
+  <div class="row">
+    <input class="col form-control" type="text" [(ngModel)]="searchQuery" placeholder="Buscar Rack">
+    <button (click)="searchRack()" class="ms-2 col-3 btn btn-primary">Buscar</button>
+  </div>
+  <div *ngIf="reports.length > 0" class="mt-4">
+    <table style="width: 100%;">
+      <tr>
+        <th>Rack</th>
+        <th>Ubicación</th>
+        <th>Embarque</th>
+        <th>Urgencia</th>
+        <th>Motor</th>
+
+      </tr>
+      <tr *ngFor="let rep of reports">
+        <td>{{ rep.rackNumber }}</td>
+        <td>{{ rep.locationNumber }}</td>
+        <td>{{ rep.shipmentDate | date }}</td>
+        <td><span [ngClass]="getShipmentClass(rep.shipmentDate)"></span></td>
+        <td><span *ngFor="let motor of rep.engineNumber">{{motor}}<br></span></td>
+        
+      </tr>
+    </table>
+  </div>
+  <div *ngIf="reports.length === 0 && searchQuery">
+    <p>No se encontró ningún rack con ese número.</p>
+  </div>  
+</p-dialog>

@@ -16,10 +16,10 @@ app.use(cors());
 app.use(bodyParser.json());
 
 const DataSchema = new mongoose.Schema({
-  motor: String,
-  rack: String,
-  ubicacion: String,
-  fechaEmbarque: Date
+  engineNumber: String,
+  rackNumber: String,
+  locationNumber: String,
+  shipmentDate: Date
 });
 
 const Data = mongoose.model('Data', DataSchema);
@@ -43,9 +43,8 @@ app.post('/api/data', async (req, res) => {
 
 // Ruta para buscar por ubicacion
 app.get('/api/data/:ubicacion', async (req, res) => {
-  const data = await Data.find({ ubicacion: req.params.ubicacion });
+  const data = await Data.find({ locationNumber: req.params.ubicacion });
   res.json(data);
-  console.log(req.params.ubicacion);
 });
 
 // Iniciar el servidor

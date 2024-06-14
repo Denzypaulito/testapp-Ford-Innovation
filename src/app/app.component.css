@@ -1,10 +1,4 @@
 /* Estilos para centrar el contenedor */
-.container {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 100vh; /* Altura de la pantalla completa */
-  }
   
   /* Estilos para la cuadrícula de botones */
   .button-grid {
@@ -24,4 +18,40 @@
     background-color: white;
     padding: 2em;
   }
+
+  .vwindow {
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
   
+  .red::after {
+    content: ' ';
+    display: inline-block;
+    width: 10px;
+    height: 10px;
+    background-color: red;
+    border-radius: 50%;
+    margin-left: 10px;
+  }
+  
+  .yellow::after {
+    content: ' ';
+    display: inline-block;
+    width: 10px;
+    height: 10px;
+    background-color: rgb(253, 217, 13);
+    border-radius: 50%;
+    margin-left: 10px;
+  }
+  
+  .green::after {
+    content: ' ';
+    display: inline-block;
+    width: 10px;
+    height: 10px;
+    background-color: green;
+    border-radius: 50%;
+    margin-left: 10px;
+  }

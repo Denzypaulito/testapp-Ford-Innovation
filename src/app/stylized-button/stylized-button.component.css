@@ -1,7 +1,7 @@
 .stylized-button {
   border: none; /* Remove border */
   color: white; /* White text */
-  padding: 4em 8em; /* Some padding */
+  padding: 1em 2em; /* Some padding */
   text-align: center; /* Center the text */
   text-decoration: none; /* Remove underline */
   display: inline-block; /* Make the button inline-block */
@@ -10,10 +10,11 @@
   cursor: pointer; /* Pointer/hand icon */
   border-radius: 12px; /* Rounded corners */
   transition-duration: 0.4s; /* Make the transition smooth */
+  width: 8em;
 }
 
 .stylized-button:hover {
   background-color: white; /* Add a background color on hover */
   color: black; /* Add a text color on hover */
-  border: 1px solid #1e05ff; /* Add a border on hover */
+  /*border: 1px solid #000000; /* Add a border on hover */
 }

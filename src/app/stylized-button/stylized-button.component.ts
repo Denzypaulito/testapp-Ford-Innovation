@@ -1,8 +1,7 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
-import { ReportModalComponent } from '../report-modal/report-modal.component';
-import { CreateReportModalComponent } from '../create-report-modal/create-report-modal.component';
 import { DataService } from '../data.service';
+import { Report } from '../models/report.model';
 
 @Component({
   selector: 'app-stylized-button',
@@ -17,6 +16,8 @@ export class StylizedButtonComponent implements OnInit {
 
   buttonColor: string = '#008000'; // Default color is green (#008000)
 
+  @Output() clickedEvt = new EventEmitter<string>();
+
   constructor(private dialog: MatDialog, private dataService: DataService) { }
 
   ngOnInit() {
@@ -27,11 +28,11 @@ export class StylizedButtonComponent implements OnInit {
     }
   }
 
-  calculateButtonColor(reports: any[]): string {
+  calculateButtonColor(reports: Report[]): string {
     let hasRed = false;
     let hasYellow = false;
     for (let report of reports) {
-      const shipmentDate = new Date(report.fechaEmbarque);
+      const shipmentDate = new Date(report.shipmentDate);
       const currentDate = new Date();
       const differenceInDays = Math.floor((currentDate.getTime() - shipmentDate.getTime()) / (1000 * 60 * 60 * 24));
 
@@ -44,21 +45,10 @@ export class StylizedButtonComponent implements OnInit {
       if (hasRed) return '#FF0000'; // Red (#FF0000)
     }
 
-    return hasYellow ? '#FFDF00' : '#008000'; // Yellow (#FFFF00) or Green (#008000)
+    return hasYellow ? '#fad201' : '#008000'; // Yellow (#FFFF00) or Green (#008000)
   }
 
   openModal() {
-    if (this.action === 'create') {
-      this.dialog.open(CreateReportModalComponent, {
-        width: '600px',
-        data: { buttonName: this.buttonName }
-      });
-    } else {
-      let dref = this.dialog.open(ReportModalComponent, {
-        width: '600px',
-        data: { buttonName: this.buttonName }
-      });
-      dref.componentInstance.ubicacion_id = this.ubicacion_id;
-    }
+    this.clickedEvt.emit(this.ubicacion_id);
   }
 }
