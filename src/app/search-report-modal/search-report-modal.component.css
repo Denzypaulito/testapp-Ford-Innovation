@@ -1,0 +1,55 @@
+.stylized-button {
+    background-color: #4551f1; /* Button background color */
+    border: none; /* Remove border */
+    color: white; /* White text */
+    padding: 10px 20px; /* Button padding */
+    text-align: center; /* Center the text */
+    text-decoration: none; /* Remove underline */
+    display: inline-block; /* Make the button inline-block */
+    font-size: 16px; /* Increase font size */
+    margin: 10px 2px; /* Some margin */
+    cursor: pointer; /* Pointer/hand icon */
+    border-radius: 12px; /* Rounded corners */
+    transition-duration: 0.4s; /* Make the transition smooth */
+  }
+  
+  .stylized-button:hover {
+    background-color: white; /* Add a background color on hover */
+    color: black; /* Add a text color on hover */
+    border: 1px solid #1e05ff; /* Add a border on hover */
+  }
+  
+  .search-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 20px;
+  }
+  
+  .search-container input {
+    width: 70%;
+    padding: 10px;
+    margin-right: 10px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+  }
+  
+  .search-container button {
+    padding: 10px 20px;
+  }
+  
+  table {
+    width: 100%;
+    border-collapse: collapse;
+  }
+  
+  th, td {
+    padding: 10px;
+    text-align: left;
+    border-bottom: 1px solid #ddd;
+  }
+  
+  th {
+    background-color: #f2f2f2;
+  }
+  

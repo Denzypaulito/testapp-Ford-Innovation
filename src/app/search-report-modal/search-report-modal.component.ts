@@ -9,7 +9,7 @@ import { DataService } from '../data.service';
 })
 export class SearchReportModalComponent {
   searchQuery: string = '';
-  searchResult: any = null;
+  reports: any[] = [];
 
   constructor(
     private dialogRef: MatDialogRef<SearchReportModalComponent>,
@@ -23,15 +23,29 @@ export class SearchReportModalComponent {
 
   searchRack(): void {
     this.dataService.getData().subscribe(data => {
-      this.searchResult = null; // Reset previous search result
-      for (let rack of ['A', 'B', 'C', 'D', 'E', 'F']) {
+      this.reports = []; // Reset previous search results
+      for (let rack of ['1', '2', '3', '4', '5', '6']) {
         const racksData = data.filter((item: any) => item.ubicacion === rack);
-        const found = racksData.find((item: any) => item.rack === this.searchQuery);
-        if (found) {
-          this.searchResult = found;
+        const found = racksData.filter((item: any) => item.rack === this.searchQuery);
+        if (found.length > 0) {
+          this.reports = found;
           break;
         }
       }
     });
+  }
+
+  getShipmentClass(shipmentDate: string): string {
+    const currentDate = new Date();
+    const shipment = new Date(shipmentDate);
+    const differenceInDays = Math.floor((currentDate.getTime() - shipment.getTime()) / (1000 * 60 * 60 * 24));
+
+    if (differenceInDays > 60) {
+      return 'red';
+    } else if (differenceInDays > 30) {
+      return 'yellow';
+    } else {
+      return 'green';
+    }
   }
 }

@@ -44,7 +44,7 @@ export class StylizedButtonComponent implements OnInit {
       if (hasRed) return '#FF0000'; // Red (#FF0000)
     }
 
-    return hasYellow ? '#FFFF00' : '#008000'; // Yellow (#FFFF00) or Green (#008000)
+    return hasYellow ? '#FFDF00' : '#008000'; // Yellow (#FFFF00) or Green (#008000)
   }
 
   openModal() {

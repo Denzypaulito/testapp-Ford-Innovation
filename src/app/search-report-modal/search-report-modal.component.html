@@ -2,16 +2,28 @@
 <mat-dialog-content>
   <div class="search-container">
     <input type="text" [(ngModel)]="searchQuery" placeholder="Buscar Rack">
-    <button (click)="searchRack()">Buscar</button>
+    <button (click)="searchRack()" class="stylized-button">Buscar</button>
   </div>
-  <div *ngIf="searchResult">
-    <h3>Resultado de Búsqueda:</h3>
-    <p>Rack: {{ searchResult.rack }}</p>
-    <p>Ubicación: {{ searchResult.ubicacion }}</p>
-    <p>Embarque: {{ searchResult.fechaEmbarque | date }}</p>
-    <p>Motor: {{ searchResult.motor }}</p>
+  <div *ngIf="reports.length > 0">
+    <table style="width: 100%;">
+      <tr>
+        <th>Rack</th>
+        <th>Ubicación</th>
+        <th>Embarque</th>
+        <th>Motor</th>
+        <th></th>
+      </tr>
+      <tr *ngFor="let report of reports">
+        <td>{{ report.rack }}</td>
+        <td>{{ report.ubicacion }}</td>
+        <td>{{ report.fechaEmbarque | date }}</td>
+        <td>{{ report.motor }}</td>
+        <!--<td><span *ngFor="let motor of report.motor">{{motor}}<br></span></td>-->
+        <td><span [ngClass]="getShipmentClass(report.fechaEmbarque)"></span></td>
+      </tr>
+    </table>
   </div>
-  <div *ngIf="searchResult === null && searchQuery">
+  <div *ngIf="reports.length === 0 && searchQuery">
     <p>No se encontró ningún rack con ese número.</p>
   </div>
 </mat-dialog-content>

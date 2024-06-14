@@ -9,7 +9,7 @@ import { DataService } from './data.service';
 export class AppComponent {
   title = 'testapp';
 
-  letras = ['A', 'B', 'C', 'D', 'E', 'F'];
+  numeros = ['1', '2', '3', '4', '5', '6'];
   searchQuery: string = '';
   highlightedRack: string | null = null;
 
@@ -18,7 +18,7 @@ export class AppComponent {
   searchRack() {
     this.highlightedRack = null; // Reset highlighted rack
     this.dataService.getData().subscribe(data => {
-      for (let rack of this.letras) {
+      for (let rack of this.numeros) {
         const racksData = data.filter((item: any) => item.ubicacion === rack);
         const found = racksData.some((item: any) => item.rack === this.searchQuery);
         if (found) {
