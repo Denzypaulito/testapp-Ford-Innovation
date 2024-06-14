@@ -22,4 +22,8 @@ export class DataService {
   getDataByUbicacion(ubicacion: string): Observable<any> {
     return this.http.get<any>(`${this.apiUrl}/${ubicacion}`);
   }
+
+  deleteData(id: string): Observable<any> {
+    return this.http.delete<any>(`${this.apiUrl}/${id}`);
+  }
 }
