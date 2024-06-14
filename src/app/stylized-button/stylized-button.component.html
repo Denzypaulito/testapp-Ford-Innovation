@@ -1,1 +1,3 @@
-<button class="stylized-button" [ngStyle]="{'background-color': buttonColor}" (click)="openModal()">{{ buttonName }}</button>
+<button class="stylized-button" 
+        [ngStyle]="{'background-color': highlight ? '#FFD700' : buttonColor}" 
+        (click)="openModal()">{{ buttonName }}</button>

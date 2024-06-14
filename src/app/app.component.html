@@ -2,12 +2,12 @@
   <div class="subcontainer">
     <marquee><h1>Bienvenidos a la Ford 🚗</h1></marquee>
     <div class="button-grid">
-      <app-stylized-button *ngFor="let letra of letras" [ubicacion_id]="letra" [buttonName]="'Rack '+letra" action="view"></app-stylized-button>
+      <app-stylized-button *ngFor="let letra of letras" [ubicacion_id]="letra" [buttonName]="'Fila' + letra" action="view"></app-stylized-button>
     </div>
     <br>
     <div class="centered">
       <app-stylized-button2 ubicacion_id="" buttonName="Crear Reporte" action="create"></app-stylized-button2>
+      <app-stylized-button-search buttonName="Buscar Rack"></app-stylized-button-search>
     </div>
-
   </div>  
 </div>

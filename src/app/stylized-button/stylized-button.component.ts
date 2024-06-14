@@ -13,8 +13,9 @@ export class StylizedButtonComponent implements OnInit {
   @Input() buttonName: string = 'Click Me';
   @Input() action: 'create' | 'view' = 'view';
   @Input() ubicacion_id: string = '';
+  @Input() highlight: boolean = false;
 
-  buttonColor: string = '#008000';
+  buttonColor: string = '#008000'; // Default color is green (#008000)
 
   constructor(private dialog: MatDialog, private dataService: DataService) { }
 
@@ -40,10 +41,10 @@ export class StylizedButtonComponent implements OnInit {
         hasYellow = true;
       }
 
-      if (hasRed) return '#FF0000';
+      if (hasRed) return '#FF0000'; // Red (#FF0000)
     }
 
-    return hasYellow ? '#FFDF00' : '#008000';
+    return hasYellow ? '#FFFF00' : '#008000'; // Yellow (#FFFF00) or Green (#008000)
   }
 
   openModal() {

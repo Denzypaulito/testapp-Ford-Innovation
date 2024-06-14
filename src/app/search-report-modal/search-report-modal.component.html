@@ -1,0 +1,20 @@
+<h2 mat-dialog-title>{{ data.buttonName }}</h2>
+<mat-dialog-content>
+  <div class="search-container">
+    <input type="text" [(ngModel)]="searchQuery" placeholder="Buscar Rack">
+    <button (click)="searchRack()">Buscar</button>
+  </div>
+  <div *ngIf="searchResult">
+    <h3>Resultado de Búsqueda:</h3>
+    <p>Rack: {{ searchResult.rack }}</p>
+    <p>Ubicación: {{ searchResult.ubicacion }}</p>
+    <p>Embarque: {{ searchResult.fechaEmbarque | date }}</p>
+    <p>Motor: {{ searchResult.motor }}</p>
+  </div>
+  <div *ngIf="searchResult === null && searchQuery">
+    <p>No se encontró ningún rack con ese número.</p>
+  </div>
+</mat-dialog-content>
+<mat-dialog-actions>
+  <button mat-button (click)="onClose()">Cerrar</button>
+</mat-dialog-actions>
