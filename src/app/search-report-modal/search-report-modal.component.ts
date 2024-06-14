@@ -20,6 +20,9 @@ export class SearchReportModalComponent {
   onClose(): void {
     this.dialogRef.close();
   }
+  processMotorString(m: string) {
+    return m.split(',');
+  }
 
   searchRack(): void {
     this.dataService.getData().subscribe(data => {
@@ -28,7 +31,14 @@ export class SearchReportModalComponent {
         const racksData = data.filter((item: any) => item.ubicacion === rack);
         const found = racksData.filter((item: any) => item.rack === this.searchQuery);
         if (found.length > 0) {
-          this.reports = found;
+          this.reports = found.map((v:any) => {
+        return {
+          engineNumber: this.processMotorString(v.motor),
+          rackNumber: v.rack,
+          locationNumber: v.ubicacion,
+          shipmentDate: v.fechaEmbarque
+        };
+      });
           break;
         }
       }

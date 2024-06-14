@@ -10,16 +10,17 @@
         <th>Rack</th>
         <th>Ubicación</th>
         <th>Embarque</th>
+        <th>Urgencia</th>
         <th>Motor</th>
-        <th></th>
+
       </tr>
       <tr *ngFor="let report of reports">
-        <td>{{ report.rack }}</td>
-        <td>{{ report.ubicacion }}</td>
-        <td>{{ report.fechaEmbarque | date }}</td>
-        <td>{{ report.motor }}</td>
-        <!--<td><span *ngFor="let motor of report.motor">{{motor}}<br></span></td>-->
-        <td><span [ngClass]="getShipmentClass(report.fechaEmbarque)"></span></td>
+        <td>{{ report.rackNumber }}</td>
+        <td>{{ report.locationNumber }}</td>
+        <td>{{ report.shipmentDate | date }}</td>
+        <td><span [ngClass]="getShipmentClass(report.shipmentDate)"></span></td>
+        <td><span *ngFor="let motor of report.engineNumber">{{motor}}<br></span></td>
+        
       </tr>
     </table>
   </div>
