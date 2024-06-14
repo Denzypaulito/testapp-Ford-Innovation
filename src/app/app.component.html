@@ -34,7 +34,7 @@
   </table>
 </p-dialog>
 
-<p-dialog header="Crear Reporte" [modal]="true" [(visible)]="create_report_visible" [style]="{ width: '25rem' }">
+<p-dialog header="Crear Registro" [modal]="true" [(visible)]="create_report_visible" [style]="{ width: '25rem' }">
   <form (ngSubmit)="onSubmitReport()" #reportForm="ngForm">
     <div>
       <label class="form-label" for="engineNumber">Número de Motor(es)</label>
@@ -53,7 +53,7 @@
       <!--<input type="date" id="shipmentDate" [(ngModel)]="report.fechaEmbarque" name="fechaEmbarque" required> -->
       <p-calendar id="shipmentDate" name="shipmentDate" [(ngModel)]="report.shipmentDate" appendTo="body" />
     </div>
-    <button type="submit" class="mt-2 btn btn-success">Crear Reporte</button>
+    <button type="submit" class="mt-2 btn btn-success">Crear Registro</button>
   </form>
   
 </p-dialog>
