@@ -2,7 +2,7 @@
   
   /* Estilos para la cuadrícula de botones */
   .button-grid {
-    display: grid;
+    display: table-column;
     grid-template-columns: repeat(3, auto); /* 3 columnas */
     gap: 50px; /* Espacio entre botones */
   }
@@ -15,7 +15,7 @@
   .subcontainer {
     border: solid 1px #000;
     border-radius: 12px;
-    background-color: white;
+    background-image: linear-gradient(rgba(255, 255, 255, .40),rgba(255, 255, 255, .40));
     padding: 2em;
   }
 

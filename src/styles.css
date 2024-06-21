@@ -1,0 +1,41 @@
+body{
+    background-image: linear-gradient(rgba(18, 113, 255, 0.658),rgba(18, 113, 255, 0.658)),
+    url("background.jpg");
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    background-size: cover;
+}
+nav{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding-top: 20px;
+    padding-left: 5%;
+    padding-right: 5%;
+    font-weight: bold;
+    background-color: none;
+}
+h1{
+    color:aliceblue;
+    font-size: 45px;
+}
+ul{
+    display: inline-block;
+    padding: 0px 20px;
+}
+li{
+    display: inline-block;
+    padding: 0px 20px;
+}
+a{/*boton*/
+    background: transparent;
+    color: white;
+    padding: 10px 20px;
+    margin: 10px;
+    cursor: pointer;
+    border-radius: 5px;
+    font-size: 16px;
+}
+a:hover{
+    color: cyan;
+}

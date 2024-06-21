@@ -1,7 +1,7 @@
 <div class="vwindow">
   <div class="container">
     <div class="subcontainer">
-      <marquee><h1>Bienvenidos a la Ford 🚗</h1></marquee>
+      <marquee><h1>Bienvenidos a Ford 🚗</h1></marquee>
       <div class="row row-cols-auto">
         <app-stylized-button class="col" *ngFor="let numero of numeros" [ubicacion_id]="numero" [buttonName]="'Fila ' + numero" action="view" (clickedEvt)="openRackDetail($event);"></app-stylized-button>
       </div>
@@ -50,12 +50,19 @@
     </div>
     <div>
       <label class="form-label" for="shipmentDate">Fecha de Embarque</label>
-      <!--<input type="date" id="shipmentDate" [(ngModel)]="report.fechaEmbarque" name="fechaEmbarque" required> -->
       <p-calendar id="shipmentDate" name="shipmentDate" [(ngModel)]="report.shipmentDate" appendTo="body" />
     </div>
-    <button type="submit" class="mt-2 btn btn-success">Crear Registro</button>
+    <button type="button" class="mt-2 btn btn-info" (click)="openPilaSelection()">Seleccionar Pila</button>
+    <button type="submit" class="mt-2 btn btn-success" [disabled]="!report.pilaNumber">Crear Registro</button>
   </form>
-  
+</p-dialog>
+
+<p-dialog header="Seleccionar Número de Pila" [modal]="true" [(visible)]="pila_selection_visible" [style]="{ width: '20rem' }">
+  <div class="list-group">
+    <button type="button" class="list-group-item list-group-item-action" *ngFor="let pila of pilas" (click)="selectPila(pila)">
+      Pila {{ pila }}
+    </button>
+  </div>
 </p-dialog>
 
 <p-dialog header="Buscar Rack" [modal]="true" [(visible)]="search_rack_visible" [style]="{ width: '50rem' }">

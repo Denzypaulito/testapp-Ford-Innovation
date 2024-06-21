@@ -10,12 +10,14 @@ import { Report } from './models/report.model';
 export class AppComponent {
   title = 'testapp';
   numeros = Array.from({ length: 27 }, (_, i) => (i + 1).toString());
+  pilas = Array.from({ length: 13 }, (_, i) => (i + 1).toString());
   searchQuery: string = '';
   highlightedRack: string | null = null;
 
   rack_detail_visible = false;
   create_report_visible = false;
   search_rack_visible = false;
+  pila_selection_visible = false;
 
   report: Report = new Report();
 
@@ -37,14 +39,14 @@ export class AppComponent {
         const racksData = data.filter((item: Report) => item.locationNumber === rack);
         const found = racksData.filter((item: Report) => item.rackNumber === this.searchQuery);
         if (found.length > 0) {
-          this.reports = found.map((v:Report) => {
-        return {
-          engineNumber: this.processMotorString(v.engineNumber),
-          rackNumber: v.rackNumber,
-          locationNumber: v.locationNumber,
-          shipmentDate: v.shipmentDate
-        };
-      });
+          this.reports = found.map((v: Report) => {
+            return {
+              engineNumber: this.processMotorString(v.engineNumber),
+              rackNumber: v.rackNumber,
+              locationNumber: v.locationNumber,
+              shipmentDate: v.shipmentDate
+            };
+          });
           break;
         }
       }
@@ -88,6 +90,15 @@ export class AppComponent {
 
   openSearchRack() {
     this.search_rack_visible = true;
+  }
+
+  openPilaSelection() {
+    this.pila_selection_visible = true;
+  }
+
+  selectPila(pila: string) {
+    this.report.pilaNumber = pila;
+    this.pila_selection_visible = false;
   }
 
   onSubmitReport() {
