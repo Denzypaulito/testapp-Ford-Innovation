@@ -7,7 +7,7 @@ import { Report } from './models/report.model';
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css']
 })
-export class AppComponent {
+export class AppComponent implements OnInit {
   title = 'testapp';
   numeros = Array.from({ length: 27 }, (_, i) => (i + 1).toString());
   pilas = Array.from({ length: 13 }, (_, i) => (i + 1).toString());
@@ -27,6 +27,16 @@ export class AppComponent {
   rack_detail_reports: any[] = [];
 
   constructor(private dataService: DataService) { }
+
+  ngOnInit() {
+    // Simulamos una inicialización de aplicación
+    setTimeout(() => {
+      const loadingScreen = document.getElementById('loading-screen');
+      if (loadingScreen) {
+        loadingScreen.style.display = 'none';
+      }
+    }, 3000); // Ajusta el tiempo según sea necesario
+  }
 
   processMotorString(m: string) {
     return m.split(',');
@@ -81,7 +91,6 @@ export class AppComponent {
       });
     });
     this.rack_detail_visible = true;
-    
   }
 
   openCreateReport() {
@@ -109,5 +118,4 @@ export class AppComponent {
       console.error('Error al crear el reporte:', error);
     });
   }
-
 }
