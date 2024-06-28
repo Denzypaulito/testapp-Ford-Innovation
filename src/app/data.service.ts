@@ -1,29 +1,31 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
+import { Report } from './models/report.model';
 
 @Injectable({
   providedIn: 'root'
 })
 export class DataService {
 
-  private apiUrl = 'http://localhost:3000/api/data';
+  private baseUrl = 'http://localhost:3000/api';
 
   constructor(private http: HttpClient) { }
 
-  getData(): Observable<any> {
-    return this.http.get<any>(this.apiUrl);
+  getData(): Observable<Report[]> {
+    return this.http.get<Report[]>(`${this.baseUrl}/reports`);
   }
 
-  createData(data: any): Observable<any> {
-    return this.http.post<any>(this.apiUrl, data);
+  saveReport(report: Report): Observable<any> {
+    return this.http.post(`${this.baseUrl}/reports`, report);
   }
 
-  getDataByUbicacion(ubicacion: string): Observable<any> {
-    return this.http.get<any>(`${this.apiUrl}/${ubicacion}`);
+  updateRackLocation(rackNumber: string, location: string): Observable<any> {
+    const updateData = { locationNumber: location };
+    return this.http.patch(`${this.baseUrl}/reports/${rackNumber}`, updateData);
   }
 
-  deleteData(id: string): Observable<any> {
-    return this.http.delete<any>(`${this.apiUrl}/${id}`);
+  getDataByUbicacion(ubicacionId: string): Observable<Report[]> {
+    return this.http.get<Report[]>(`${this.baseUrl}/reports?ubicacionId=${ubicacionId}`);
   }
 }

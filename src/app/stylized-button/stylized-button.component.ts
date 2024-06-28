@@ -14,7 +14,7 @@ export class StylizedButtonComponent implements OnInit {
   @Input() ubicacion_id: string = '';
   @Input() highlight: boolean = false;
 
-  buttonColor: string = '#9b9b9b'; // Default color is green (#008000)
+  buttonColor: string = '#9b9b9b'; // Default color is gray (#9b9b9b)
 
   @Output() clickedEvt = new EventEmitter<string>();
 
@@ -22,17 +22,17 @@ export class StylizedButtonComponent implements OnInit {
 
   ngOnInit() {
     if (this.action === 'view' && this.ubicacion_id) {
-      this.dataService.getDataByUbicacion(this.ubicacion_id).subscribe(data => {
+      this.dataService.getDataByUbicacion(this.ubicacion_id).subscribe((data: Report[]) => {
         this.buttonColor = this.calculateButtonColor(data);
       });
     }
   }
 
   calculateButtonColor(reports: Report[]): string {
-    if (reports.length === 0){
-      return '#9b9b9b'; // Gray if there are no reports 
+    if (reports.length === 0) {
+      return '#9b9b9b'; // Gray if there are no reports
     }
-    
+
     let hasRed = false;
     let hasYellow = false;
     for (let report of reports) {

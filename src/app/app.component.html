@@ -9,6 +9,7 @@
       <div class="centered">
         <button (click)="openCreateReport()" class="btn btn-primary me-2">Registro Manual</button>
         <button (click)="openSearchRack()" class="btn btn-danger">Buscar Rack</button>
+        <button (click)="openCheckoutRack()" class="btn btn-success">Dar Salida Rack</button>
       </div>
     </div>  
   </div>
@@ -22,7 +23,6 @@
       <th>Embarque</th>
       <th>Urgencia</th>
       <th>Motor</th>
-      
     </tr>
     <tr *ngFor="let rep of rack_detail_reports">
       <td>{{rep.rackNumber}}</td>
@@ -78,7 +78,6 @@
         <th>Embarque</th>
         <th>Urgencia</th>
         <th>Motor</th>
-
       </tr>
       <tr *ngFor="let rep of reports">
         <td>{{ rep.rackNumber }}</td>
@@ -86,11 +85,29 @@
         <td>{{ rep.shipmentDate | date }}</td>
         <td><span [ngClass]="getShipmentClass(rep.shipmentDate)"></span></td>
         <td><span *ngFor="let motor of rep.engineNumber">{{motor}}<br></span></td>
-        
       </tr>
     </table>
   </div>
   <div *ngIf="reports.length === 0 && searchQuery">
     <p>No se encontró ningún rack con ese número.</p>
   </div>  
+</p-dialog>
+
+<p-dialog header="Dar Salida Rack" [modal]="true" [(visible)]="checkout_rack_visible" [style]="{ width: '25rem' }">
+  <div>
+    <label class="form-label">Número de Rack:</label>
+    <input class="form-control" type="text" [(ngModel)]="checkoutRackNumber" placeholder="Ingrese número de rack">
+  </div>
+  <div>
+    <label class="form-label">Ubicación:</label>
+    <select class="form-control" [(ngModel)]="checkoutLocation" (change)="onLocationChange($event)">
+      <option value="Dino">Dino</option>
+      <option value="Otra Bodega">Otra Bodega</option>
+    </select>
+  </div>
+  <div *ngIf="checkoutLocation === 'Otra Bodega'">
+    <label class="form-label">Nombre de la Bodega:</label>
+    <input class="form-control" type="text" [(ngModel)]="otherWarehouseName" placeholder="Ingrese nombre de la bodega">
+  </div>
+  <button type="button" class="mt-2 btn btn-success" (click)="onCheckoutRack()">Dar Salida</button>
 </p-dialog>
