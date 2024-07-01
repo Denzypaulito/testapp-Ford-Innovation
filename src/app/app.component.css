@@ -23,7 +23,8 @@
     height: 100vh;
     display: flex;
     justify-content: center;
-    align-items: center;
+    padding-top: 5%;
+    /*align-items: center;*/
   }
   
   .red::after {

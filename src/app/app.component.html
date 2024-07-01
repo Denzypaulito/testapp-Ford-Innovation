@@ -8,7 +8,7 @@
       <br>
       <div class="centered">
         <button (click)="openCreateReport()" class="btn btn-primary me-2">Registro Manual</button>
-        <button (click)="openSearchRack()" class="btn btn-danger">Buscar Rack</button>
+        <button (click)="openSearchRack()" class="btn btn-danger me-2">Buscar Rack</button>
         <button (click)="openCheckoutRack()" class="btn btn-success">Dar Salida Rack</button>
       </div>
     </div>  
@@ -52,7 +52,7 @@
       <label class="form-label" for="shipmentDate">Fecha de Embarque</label>
       <p-calendar id="shipmentDate" name="shipmentDate" [(ngModel)]="report.shipmentDate" appendTo="body" />
     </div>
-    <button type="button" class="mt-2 btn btn-info" (click)="openPilaSelection()">Seleccionar Pila</button>
+    <button type="button" class="mt-2 btn btn-info me-2" (click)="openPilaSelection()">Seleccionar Pila</button>
     <button type="submit" class="mt-2 btn btn-success" [disabled]="!report.pilaNumber">Crear Registro</button>
   </form>
 </p-dialog>

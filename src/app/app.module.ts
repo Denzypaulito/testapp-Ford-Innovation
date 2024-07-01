@@ -12,6 +12,7 @@ import { AppRoutingModule } from './app-routing.module';
 import { DataService } from './data.service';
 import { CalendarModule } from 'primeng/calendar';
 import { DialogModule } from 'primeng/dialog';
+import { NgOptimizedImage } from '@angular/common'
 
 @NgModule({
   declarations: [
@@ -27,7 +28,8 @@ import { DialogModule } from 'primeng/dialog';
     HttpClientModule,
     FormsModule,
     CalendarModule,
-    DialogModule
+    DialogModule,
+    NgOptimizedImage
   ],
   providers: [DataService],
   bootstrap: [AppComponent]
