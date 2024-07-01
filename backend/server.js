@@ -31,10 +31,10 @@ const Data = mongoose.model('Data', DataSchema);
 // Ruta para obtener todos los datos
 app.get('/api/data', async (req, res) => {
   if(req.query.row === undefined){
-    const data = await Data.find();
+    const data = await Data.find({inTransit: false});
     res.json(data);
   }else {
-    const data = await Data.find({row: req.query.row});
+    const data = await Data.find({row: req.query.row, inTransit: false});
     res.json(data);
   }
 });
@@ -57,7 +57,7 @@ app.get('/api/reports', async (req, res) => {
 });
 
 app.get('/api/findRack', async (req, res) => {
-  const data = await Data.find({ rackNumber: req.query.rackNumber });
+  const data = await Data.find({ rackNumber: req.query.rackNumber, inTransit: false});
   res.json(data);
 });
 

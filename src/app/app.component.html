@@ -10,9 +10,7 @@
 <div class="vwindow">
   <div class="container">
     <div class="subcontainer">
-      <marquee>
-        <h1>Bienvenidos a Ford 🚗</h1>
-      </marquee>
+        <h1 class="centered">Racks</h1>
       <div class="row row-cols-auto">
         <app-stylized-button class="col" *ngFor="let numero of numeros" [ubicacion_id]="numero"
           [buttonName]="'Fila ' + numero" action="view" (clickedEvt)="openRackDetail($event);"></app-stylized-button>
