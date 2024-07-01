@@ -21,13 +21,24 @@ export class AppComponent {
   checkout_rack_visible = false;
 
   report: Report = new Report();
-  reports: any[] = [];
+  reports: Report[] = [];
 
-  openRack: string = '';
+  searched_reports: Report[] = [];
+
+  openRack: number = 0;
   rack_detail_reports: any[] = [];
   checkoutRackNumber: string = '';
   checkoutLocation: string = 'Dino';
   otherWarehouseName: string = '';
+  checkoutInTransit: boolean = false;
+
+  enginesTemp: string = '';
+
+  isCreatingReport: boolean = false;
+  searched = false;
+
+  show_motor_list = false;
+  motor_list: Report[] = [];
 
   constructor(private dataService: DataService) { }
 
@@ -36,37 +47,23 @@ export class AppComponent {
   }
 
   searchRack(): void {
-    this.dataService.getData().subscribe((data: Report[]) => {
-      this.reports = []; // Reset previous search results
-      for (let rack of this.numeros) {
-        const racksData = data.filter((item: Report) => item.locationNumber === rack);
-        const found = racksData.filter((item: Report) => item.rackNumber === this.searchQuery);
-        if (found.length > 0) {
-          this.reports = found.map((v:Report) => {
-        return {
-          engineNumber: this.processMotorString(v.engineNumber),
-          rackNumber: v.rackNumber,
-          locationNumber: v.locationNumber,
-          shipmentDate: v.shipmentDate
-        };
-      });
-          break;
-        }
-      }
+    this.searched = false;
+    this.dataService.findRack(this.searchQuery).subscribe((data: Report[]) => {
+      this.searched_reports = data;
+      this.searched = true;
     });
   }
 
-  getShipmentClass(shipmentDate: string): string {
+  getShipmentClass(shipmentDate: Date): string {
     const currentDate = new Date();
     const shipment = new Date(shipmentDate);
     const differenceInDays = Math.floor((currentDate.getTime() - shipment.getTime()) / (1000 * 60 * 60 * 24));
-
     if (differenceInDays > 14) {
-      return 'text-danger'; // More than 14 days
+      return 'red'; // More than 14 days
     } else if (differenceInDays > 7) {
-      return 'text-warning'; // Between 7 and 14 days
+      return 'yellow'; // Between 7 and 14 days
     } else {
-      return 'text-success'; // 7 days or less
+      return 'green'; // 7 days or less
     }
   }
 
@@ -86,35 +83,19 @@ export class AppComponent {
     this.pila_selection_visible = true;
   }
 
+  openMotorList() {
+    this.show_motor_list = true;
+    this.dataService.getData().subscribe((data: Report[]) => {
+      this.motor_list = data;
+    });
+  }
+
   openRackDetail(event: any) {
     this.rack_detail_visible = true;
     this.openRack = event;
-    this.dataService.getData().subscribe((data: Report[]) => {
-      const reports = data.filter((item: Report) => item.locationNumber === event);
-      this.rack_detail_reports = reports.map((v:Report) => {
-        return {
-          engineNumber: this.processMotorString(v.engineNumber),
-          rackNumber: v.rackNumber,
-          locationNumber: v.locationNumber,
-          shipmentDate: v.shipmentDate
-        };
-      });
+    this.dataService.getDataByRow(this.openRack).subscribe((data: Report[]) => {
+      this.reports = data;
     });
-  }
-
-  onSubmitReport() {
-    this.dataService.saveReport(this.report).subscribe(response => {
-      console.log('Report saved:', response);
-      this.create_report_visible = false; // Close dialog after saving
-      this.report = new Report(); // Reset form
-    }, error => {
-      console.error('Error saving report:', error);
-    });
-  }
-
-  selectPila(pila: string) {
-    this.report.pilaNumber = pila;
-    this.pila_selection_visible = false; // Close dialog after selection
   }
 
   onLocationChange(event: any) {
@@ -122,17 +103,33 @@ export class AppComponent {
   }
 
   onCheckoutRack() {
-    const updatedLocation = this.checkoutLocation === 'Dino' ? 'Dino' : this.otherWarehouseName;
-    if (this.checkoutRackNumber && updatedLocation) {
-      this.dataService.updateRackLocation(this.checkoutRackNumber, updatedLocation).subscribe(response => {
-        console.log('Rack location updated:', response);
-        this.checkout_rack_visible = false; // Close dialog after updating
-        this.checkoutRackNumber = ''; // Reset form
-        this.checkoutLocation = 'Dino'; // Reset location
-        this.otherWarehouseName = ''; // Reset other warehouse name
-      }, error => {
-        console.error('Error updating rack location:', error);
-      });
+    if(this.checkoutLocation === 'Dino') {
+      this.otherWarehouseName = 'Dino';
     }
+    this.dataService.changeRackStatus(this.checkoutRackNumber, this.checkoutInTransit, this.otherWarehouseName).subscribe({
+      next: (response) => {
+        if (response.modified === 1) {
+          window.alert('Se ha actualizado con éxito!');
+          location.reload();
+        } else {
+          window.alert('No se ha podido actualizar el rack');
+        }
+      }
+    });
   }
+
+  onSubmitReport() {
+    if(this.isCreatingReport) return;
+    this.isCreatingReport = true;
+    this.report.engines = this.processMotorString(this.enginesTemp);
+    this.dataService.saveReport(this.report).subscribe({
+      next: (response) => {
+        window.alert('Se ha guardado con éxito!');
+        this.isCreatingReport = false;
+        location.reload();
+        
+      }
+    });
+  }
+
 }

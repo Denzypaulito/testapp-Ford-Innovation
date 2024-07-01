@@ -1,9 +1,21 @@
+<nav>
+  <ul>
+    <li><a (click)="openMotorList();" href="#">Lista de motores</a></li>
+  </ul>
+  <img src="assets/FordLogo.png" width="215" height="200" alt="Logo de Ford">
+  <ul>
+    <li><a href="Buscar Rack">Area de Embarques</a></li>
+  </ul>
+</nav>
 <div class="vwindow">
   <div class="container">
     <div class="subcontainer">
-      <marquee><h1>Bienvenidos a Ford 🚗</h1></marquee>
+      <marquee>
+        <h1>Bienvenidos a Ford 🚗</h1>
+      </marquee>
       <div class="row row-cols-auto">
-        <app-stylized-button class="col" *ngFor="let numero of numeros" [ubicacion_id]="numero" [buttonName]="'Fila ' + numero" action="view" (clickedEvt)="openRackDetail($event);"></app-stylized-button>
+        <app-stylized-button class="col" *ngFor="let numero of numeros" [ubicacion_id]="numero"
+          [buttonName]="'Fila ' + numero" action="view" (clickedEvt)="openRackDetail($event);"></app-stylized-button>
       </div>
       <br>
       <div class="centered">
@@ -11,58 +23,71 @@
         <button (click)="openSearchRack()" class="btn btn-danger me-2">Buscar Rack</button>
         <button (click)="openCheckoutRack()" class="btn btn-success">Dar Salida Rack</button>
       </div>
-    </div>  
+    </div>
   </div>
 </div>
 
-<p-dialog [header]="'Fila '+openRack" [modal]="true" [(visible)]="rack_detail_visible" [style]="{ width: '35rem' }">
-  <table style="width: 100%;">
-    <tr>
-      <th>Rack</th>
-      <th>Ubicación</th>
-      <th>Embarque</th>
-      <th>Urgencia</th>
-      <th>Motor</th>
-    </tr>
-    <tr *ngFor="let rep of rack_detail_reports">
-      <td>{{rep.rackNumber}}</td>
-      <td>{{rep.locationNumber}}</td>
-      <td>{{rep.shipmentDate | date}}</td>
-      <span [ngClass]="getShipmentClass(rep.shipmentDate)"></span>
-      <td><span *ngFor="let motor of rep.engineNumber">{{motor}}<br></span></td>
-    </tr>
-  </table>
+<p-dialog [header]="'Fila '+openRack" [modal]="true" [(visible)]="rack_detail_visible" [style]="{ width: '50rem' }">
+  <p-table [value]="reports" styleClass="p-datatable-striped" [tableStyle]="{ 'width': '100%' }">
+    <ng-template pTemplate="header">
+      <tr>
+        <th>No. de Rack</th>
+        <th>Fila</th>
+        <th>Pila</th>
+        <th>Posición de pila</th>
+        <th>Fecha de embarque</th>
+        <th>Urgencia</th>
+        <th>Motor</th>
+      </tr>
+    </ng-template>
+    <ng-template pTemplate="body" let-rep>
+      <tr>
+        <td>{{ rep.rackNumber }}</td>
+        <td>{{ rep.row }}</td>
+        <td>{{ rep.pile }}</td>
+        <td>{{ rep.positionPile }}</td>
+        <td>{{ rep.shipmentDate | date }}</td>
+        <td><span [ngClass]="getShipmentClass(rep.shipmentDate)"></span></td>
+        <td><span *ngFor="let engine of rep.engines">{{engine}}<br></span></td>
+      </tr>
+    </ng-template>
+  </p-table>
 </p-dialog>
 
 <p-dialog header="Crear Registro" [modal]="true" [(visible)]="create_report_visible" [style]="{ width: '25rem' }">
   <form (ngSubmit)="onSubmitReport()" #reportForm="ngForm">
     <div>
       <label class="form-label" for="engineNumber">Número de Motor(es)</label>
-      <input class="form-control" type="text" id="engineNumber" [(ngModel)]="report.engineNumber" name="engineNumber" required>
+      <input class="form-control" type="text" id="engineNumber" [(ngModel)]="enginesTemp" name="engineNumber" required>
     </div>
     <div>
       <label class="form-label" for="rackNumber">Número de Rack</label>
-      <input class="form-control" type="text" id="rackNumber" [(ngModel)]="report.rackNumber" name="rackNumber" required>
+      <input class="form-control" type="text" id="rackNumber" [(ngModel)]="report.rackNumber" name="rackNumber"
+        required>
     </div>
     <div>
-      <label class="form-label" for="locationNumber">Número de Ubicación</label>
-      <input class="form-control" type="text" id="locationNumber" [(ngModel)]="report.locationNumber" name="locationNumber" required>
+      <label class="form-label" for="row">Fila</label>
+      <input class="form-control" type="text" id="row" [(ngModel)]="report.row" name="row" required>
+    </div>
+    <div>
+      <label class="form-label" for="pile">Pila</label>
+      <input class="form-control" type="text" id="pile" [(ngModel)]="report.pile" name="pile" required>
+    </div>
+    <div>
+      <label class="form-label" for="pile">Posición en Pila</label>
+      <select id="pile" name="pile" class="form-control" [(ngModel)]="report.positionPile">
+        <option value="A">A</option>
+        <option value="B">B</option>
+        <option value="C">C</option>
+        <option value="D">D</option>
+      </select>
     </div>
     <div>
       <label class="form-label" for="shipmentDate">Fecha de Embarque</label>
       <p-calendar id="shipmentDate" name="shipmentDate" [(ngModel)]="report.shipmentDate" appendTo="body" />
     </div>
-    <button type="button" class="mt-2 btn btn-info me-2" (click)="openPilaSelection()">Seleccionar Pila</button>
-    <button type="submit" class="mt-2 btn btn-success" [disabled]="!report.pilaNumber">Crear Registro</button>
+    <button type="submit" class="mt-2 btn btn-success">Crear Registro</button>
   </form>
-</p-dialog>
-
-<p-dialog header="Seleccionar Número de Pila" [modal]="true" [(visible)]="pila_selection_visible" [style]="{ width: '20rem' }">
-  <div class="list-group">
-    <button type="button" class="list-group-item list-group-item-action" *ngFor="let pila of pilas" (click)="selectPila(pila)">
-      Pila {{ pila }}
-    </button>
-  </div>
 </p-dialog>
 
 <p-dialog header="Buscar Rack" [modal]="true" [(visible)]="search_rack_visible" [style]="{ width: '50rem' }">
@@ -71,26 +96,34 @@
     <button (click)="searchRack()" class="ms-2 col-3 btn btn-primary">Buscar</button>
   </div>
   <div *ngIf="reports.length > 0" class="mt-4">
-    <table style="width: 100%;">
-      <tr>
-        <th>Rack</th>
-        <th>Ubicación</th>
-        <th>Embarque</th>
-        <th>Urgencia</th>
-        <th>Motor</th>
-      </tr>
-      <tr *ngFor="let rep of reports">
-        <td>{{ rep.rackNumber }}</td>
-        <td>{{ rep.locationNumber }}</td>
-        <td>{{ rep.shipmentDate | date }}</td>
-        <td><span [ngClass]="getShipmentClass(rep.shipmentDate)"></span></td>
-        <td><span *ngFor="let motor of rep.engineNumber">{{motor}}<br></span></td>
-      </tr>
-    </table>
+    <p-table [value]="searched_reports" styleClass="p-datatable-striped" [tableStyle]="{ 'width': '100%' }">
+      <ng-template pTemplate="header">
+        <tr>
+          <th>No. de Rack</th>
+          <th>Fila</th>
+          <th>Pila</th>
+          <th>Posición de pila</th>
+          <th>Fecha de embarque</th>
+          <th>Urgencia</th>
+          <th>Motor</th>
+        </tr>
+      </ng-template>
+      <ng-template pTemplate="body" let-rep>
+        <tr>
+          <td>{{ rep.rackNumber }}</td>
+          <td>{{ rep.row }}</td>
+          <td>{{ rep.pile }}</td>
+          <td>{{ rep.positionPile }}</td>
+          <td>{{ rep.shipmentDate | date }}</td>
+          <td><span [ngClass]="getShipmentClass(rep.shipmentDate)"></span></td>
+          <td><span *ngFor="let engine of rep.engines">{{engine}}<br></span></td>
+        </tr>
+      </ng-template>
+    </p-table>
   </div>
-  <div *ngIf="reports.length === 0 && searchQuery">
+  <div *ngIf="reports.length === 0 && searched">
     <p>No se encontró ningún rack con ese número.</p>
-  </div>  
+  </div>
 </p-dialog>
 
 <p-dialog header="Dar Salida Rack" [modal]="true" [(visible)]="checkout_rack_visible" [style]="{ width: '25rem' }">
@@ -99,15 +132,47 @@
     <input class="form-control" type="text" [(ngModel)]="checkoutRackNumber" placeholder="Ingrese número de rack">
   </div>
   <div>
+    <input name="inTransit" id="inTransit" [(ngModel)]="checkoutInTransit" type="checkbox"><label for="inTransit">En
+      tránsito</label>
+  </div>
+  <div *ngIf="checkoutInTransit">
     <label class="form-label">Ubicación:</label>
     <select class="form-control" [(ngModel)]="checkoutLocation" (change)="onLocationChange($event)">
       <option value="Dino">Dino</option>
       <option value="Otra Bodega">Otra Bodega</option>
     </select>
-  </div>
-  <div *ngIf="checkoutLocation === 'Otra Bodega'">
-    <label class="form-label">Nombre de la Bodega:</label>
-    <input class="form-control" type="text" [(ngModel)]="otherWarehouseName" placeholder="Ingrese nombre de la bodega">
+    <div *ngIf="checkoutLocation === 'Otra Bodega'">
+      <label class="form-label">Nombre de la Bodega:</label>
+      <input class="form-control" type="text" [(ngModel)]="otherWarehouseName"
+        placeholder="Ingrese nombre de la bodega">
+    </div>
   </div>
   <button type="button" class="mt-2 btn btn-success" (click)="onCheckoutRack()">Dar Salida</button>
+</p-dialog>
+
+<p-dialog header="Lista de motores" [modal]="true" [(visible)]="show_motor_list" [style]="{ width: '70rem' }">
+  <p-table [value]="motor_list" styleClass="p-datatable-striped" [tableStyle]="{ 'width': '100%' }">
+    <ng-template pTemplate="header">
+      <tr>
+        <th>No. de Rack</th>
+        <th>Fila</th>
+        <th>Pila</th>
+        <th>Posición de pila</th>
+        <th>Fecha de embarque</th>
+        <th>Urgencia</th>
+        <th>Motor</th>
+      </tr>
+    </ng-template>
+    <ng-template pTemplate="body" let-rep>
+      <tr>
+        <td>{{ rep.rackNumber }}</td>
+        <td>{{ rep.row }}</td>
+        <td>{{ rep.pile }}</td>
+        <td>{{ rep.positionPile }}</td>
+        <td>{{ rep.shipmentDate | date }}</td>
+        <td><span [ngClass]="getShipmentClass(rep.shipmentDate)"></span></td>
+        <td><span *ngFor="let engine of rep.engines">{{engine}}<br></span></td>
+      </tr>
+    </ng-template>
+  </p-table>
 </p-dialog>

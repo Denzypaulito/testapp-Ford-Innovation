@@ -13,7 +13,11 @@ export class DataService {
   constructor(private http: HttpClient) { }
 
   getData(): Observable<Report[]> {
-    return this.http.get<Report[]>(`${this.baseUrl}/reports`);
+    return this.http.get<Report[]>(`${this.baseUrl}/data`);
+  }
+
+  getDataByRow(row: number): Observable<Report[]> {
+    return this.http.get<Report[]>(`${this.baseUrl}/data?row=${row}`);
   }
 
   saveReport(report: Report): Observable<any> {
@@ -28,4 +32,14 @@ export class DataService {
   getDataByUbicacion(ubicacionId: string): Observable<Report[]> {
     return this.http.get<Report[]>(`${this.baseUrl}/reports?ubicacionId=${ubicacionId}`);
   }
+
+  findRack(rackNumber: string): Observable<Report[]> {
+    return this.http.get<Report[]>(`${this.baseUrl}/findRack?rackNumber=${rackNumber}`);
+  }
+
+  changeRackStatus(rackNumber: string, inTransit: boolean, siteName: string): Observable<{modified: number}>  {
+    const updateData = { rackNumber, inTransit, siteName };
+    return this.http.post<{modified: number}>(`${this.baseUrl}/changeRackStatus`, updateData);
+  }
+
 }
